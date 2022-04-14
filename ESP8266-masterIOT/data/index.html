@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="data:,">
+        <!-- <link rel="stylesheet" href="style.css">  -->  
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+    </head>
+    
+    <body>
+        <div class="container" style="margin: 10px 0 0 30px">
+            <div class="row">
+                <h1 style="font-size: 3em; font-weight: bold; color: rgb(97, 233, 109); margin-bottom: 20px;">ESP Color</h1>
+            </div>
+        
+
+            <a class="btn btn-primary btn-lg" href="#" id="change_color" role="button">Change Color</a> 
+
+            <input class="jscolor {onFineChange:'update(this)'}" id="rgb">
+
+            <a href='/ESPIOT?RainbowON&'>
+                <button style="margin-left: 15px; background: #069cc2; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;">rainbow</button>
+            </a>
+
+            
+            <a href='/ESPIOT?airConditioning&'>
+                <button style="margin-left: 15px; background: #069cc2; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;">Ar condicionado</button>
+            </a>
+
+            <a href='/ESPIOT?Light&'>
+                <button style="margin-left: 15px; background: #069cc2; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;">Luz</button>
+            </a>
+
+            <script>
+                function update(picker) {
+                    document.getElementById('rgb').innerHTML = Math.round(picker.rgb[0]) + ', ' +  Math.round(picker.rgb[1]) + ', ' + Math.round(picker.rgb[2]);
+                    document.getElementById("change_color").href = "?r" + Math.round(picker.rgb[0]) + "g" +  Math.round(picker.rgb[1]) + "b" + Math.round(picker.rgb[2]) + "&";
+                }
+            </script>
+            
+        </div>
+    </body>
+</html>
