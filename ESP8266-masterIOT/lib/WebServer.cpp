@@ -3,15 +3,14 @@
 
 
 //variable
-int red   = 0; 
-int green = 0;
-int blue  = 0;
+int red, green, blue = 0; 
+int redColor, greenColor, blueColor, value = 0;
 
 String header; // variable to store the HTTP req uest
 String webPage = "";
 
 //set finction
-void request();
+int request();
 void command(String command);
 
 
@@ -32,7 +31,7 @@ void readFilesHTML(){
 }
 
 
-void WebServer(){
+int WebServer(){
 	  
     WiFiClient client = server.available(); // client wifi
 
@@ -68,7 +67,7 @@ void WebServer(){
                       client.println(webPage); 
                       client.println();
                       
-                      request(); //function to request of client
+                      redColor, greenColor, blueColor, value = request();
                       break;                                                                    
         			} 
                     else{
@@ -89,10 +88,13 @@ void WebServer(){
         //Serial.println("Client Disconnected\n\n"); 
 
     }//end if Client
+
+    return (redColor, greenColor, blueColor, value);
+
 }
 
 
-void request(){
+int request(){
 
 	if(header.indexOf("GET /ESPIOT?r") >= 0){
         int pos1 = header.indexOf('r'); //red
@@ -104,28 +106,20 @@ void request(){
         green = header.substring(pos2+1, pos3).toInt();
         blue  = header.substring(pos3+1, pos4).toInt();
 
-        //setColor(red,green,blue,0);
+        return (red,green,blue,0);
 
     }
     else if(header.indexOf("GET /ESPIOT?") >= 0){
         int pos = header.indexOf('?');
         int finally = header.indexOf('&');
 
-        command(header.substring(pos+1,finally)); // function to commands
+        String command = header.substring(pos+1,finally); // function to commands
 
+        if(command == ""){
+            return (0,0,0,1);
+        }
+        else if(command == ""){
+            return (0,0,0,2);
+        }
     }                  
-}
-
-
-void command(String command){
-
-	if(command == "RainbowON"){
-		Serial.println("Rainbow ON");
-	}
-	else if(command == ""){
-
-	}
-	else if(command == ""){
-
-	}
 }

@@ -4,9 +4,10 @@
 
 
 void readFilesHTML();
-void WebServer();
+int WebServer();
 
 void command(String command);
-void request();
+int request();
 
+ 
 #endif
