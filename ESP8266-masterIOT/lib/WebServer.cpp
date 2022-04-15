@@ -9,9 +9,9 @@ int red, green, blue = 0;
 String header; // variable to store the HTTP req uest
 String webPage = "";
 
+
 //set finction
-int request();
-void command(String command);
+void request();
 
 
 //function
@@ -31,7 +31,7 @@ void readFilesHTML(){
 }
 
 
-int WebServer(){
+void WebServer(){
 	  
     WiFiClient client = server.available(); // client wifi
 
@@ -67,7 +67,7 @@ int WebServer(){
                       client.println(webPage); 
                       client.println();
                       
-                      //redColor, greenColor, blueColor, value = request();
+                      request(); // verific the commands
                       break;                                                                    
         			} 
                     else{
@@ -94,7 +94,7 @@ int WebServer(){
 }
 
 
-int request(){
+void request(){
 
 	if(header.indexOf("GET /ESPIOT?r") >= 0){
         int pos1 = header.indexOf('r'); //red
@@ -106,20 +106,26 @@ int request(){
         green = header.substring(pos2+1, pos3).toInt();
         blue  = header.substring(pos3+1, pos4).toInt();
 
-        //return (red,green,blue,0);
+          
 
     }
+
     else if(header.indexOf("GET /ESPIOT?") >= 0){
         int pos = header.indexOf('?');
         int finally = header.indexOf('&');
 
-        String command = header.substring(pos+1,finally); // function to commands
+        String command = header.substring(pos+1,finally); //to commands
 
-        if(command == ""){
-            //return (0,0,0,1);
+        //////////////////////////////////////////////////////////////////////////
+
+        if(command == ""){ // turn on rainbow mode
+           
+        }   
+        else if(command == ""){ // turn on or off the light
+            
         }
-        else if(command == ""){
-            //return (0,0,0,2);
+        else if(command == ""){ //turn on air conditioning
+
         }
     }                  
 }

@@ -13,7 +13,7 @@
 
 //module
 #include "lib/ESP_WiFiConfig.h"
-#include "lib/WebServer.h"
+#include "lib/WebServer2.h"
 #include "lib/stripLed.h"
 ///////////////////////////////////
 
@@ -26,28 +26,33 @@ Adafruit_NeoPixel pixels = Adafruit_NeoPixel(Npixels, pin, NEO_GRB + NEO_KHZ400)
 
 StripLed stripled(pixels);
 
+webserver Web_server(pixels);
+
+
+
 void setup() {
   Serial.begin(115200); // serial 
   pixels.begin();        // Strip Led     
   SPIFFS.begin();       // SPIFFS
 
-  /*
-  // turn on strip led in color blue
-  for(int i=0; i<NumPixels; i++){
-      pixels.setPixelColor(i,pixels.Color(0,230,255));
-      pixels.show();
-      //delay(500);
-  }*/
-
   ///////////////////////////////////////////
-  stripled.startStripLed();  
-  //readFilesHTML();  // read file HTLM
-  //connect_WiFi();
+  //stripled.startStripLed(); 
+
+  //ws readFilesHTML();  
+  
+  Web_server.readFilesHTML();  // read file HTLM
+  connect_WiFi();
+
 }
 
 
 
 void loop() {
+
+  Web_server.WebServer();
+
+    
+  Serial.println(RainbowTurnON,endRainbow);  
   /*
   (redColor, 
   greenColor,
@@ -55,10 +60,9 @@ void loop() {
   value) = WebServer();*/
 
   //command(redColor, greenColor, blueColor, index);
-
   
-  if(stripled.RainbowTurnON == true){
-    //rainbowStripLed(10);
+  if(RainbowTurnON == true){
+    stripled.Rainbow(10);
   }
  
 }

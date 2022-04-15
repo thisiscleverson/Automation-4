@@ -1,12 +1,17 @@
 #ifndef _stripLed_H
 #define _stripLed_H
 #include "WebServer.h"
+#include <Arduino.h>
+
+static bool RainbowTurnON = false; // desligar o modo arco iris da fita de led 
+static bool endRainbow = false;    
+
 
 class StripLed{
 
 public:
-	bool RainbowTurnON = false; // desligar o modo arco iris da fita de led 
-	bool endRainbow = false;    
+	//RainbowTurnON; // desligar o modo arco iris da fita de led 
+	//endRainbow;    
 
 	int count = 0; // variavel para pegar a quantidade de pixel da fita de led 
 	
@@ -56,10 +61,13 @@ public:
           		pixels.setPixelColor(i, pixels.gamma32(pixels.ColorHSV(pixelHue)));
     		} 
       		WebServer();
+
+
       		if(endRainbow == true){
         		endRainbow = false;
         		break;
-      		}      
+      		}   
+
      		pixels.show(); // Update strip with new contents
       		delay(wait); 
   		}
