@@ -4,7 +4,7 @@
 
 //variable
 int red, green, blue = 0; 
-int redColor, greenColor, blueColor, value = 0;
+//int redColor, greenColor, blueColor, value = 0;
 
 String header; // variable to store the HTTP req uest
 String webPage = "";
@@ -67,7 +67,7 @@ int WebServer(){
                       client.println(webPage); 
                       client.println();
                       
-                      redColor, greenColor, blueColor, value = request();
+                      //redColor, greenColor, blueColor, value = request();
                       break;                                                                    
         			} 
                     else{
@@ -89,7 +89,7 @@ int WebServer(){
 
     }//end if Client
 
-    return (redColor, greenColor, blueColor, value);
+    //return (redColor, greenColor, blueColor, value);
 
 }
 
@@ -106,7 +106,7 @@ int request(){
         green = header.substring(pos2+1, pos3).toInt();
         blue  = header.substring(pos3+1, pos4).toInt();
 
-        return (red,green,blue,0);
+        //return (red,green,blue,0);
 
     }
     else if(header.indexOf("GET /ESPIOT?") >= 0){
@@ -116,10 +116,10 @@ int request(){
         String command = header.substring(pos+1,finally); // function to commands
 
         if(command == ""){
-            return (0,0,0,1);
+            //return (0,0,0,1);
         }
         else if(command == ""){
-            return (0,0,0,2);
+            //return (0,0,0,2);
         }
     }                  
 }
