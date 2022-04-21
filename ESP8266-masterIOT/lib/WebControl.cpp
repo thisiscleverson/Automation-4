@@ -2,17 +2,8 @@
 #include <FS.h>
 
 
-//variable
-int red, green, blue = 0; 
-//int redColor, greenColor, blueColor, value = 0;
-
 String header; // variable to store the HTTP req uest
 String webPage = "";
-
-
-//set finction
-void request();
-
 
 //function
 void readFilesHTML(){
@@ -31,7 +22,7 @@ void readFilesHTML(){
 }
 
 
-void WebServer(){
+String WebServer(){
 	  
     WiFiClient client = server.available(); // client wifi
 
@@ -47,6 +38,7 @@ void WebServer(){
         previousTime = currentTime;
         //Serial.println("New Client connecting.");
         String currentLine = "";
+        header = "";
                           
         while(client.connected() && currentTime - previousTime <= timeoutTime){
             currentTime = millis();
@@ -67,7 +59,7 @@ void WebServer(){
                       client.println(webPage); 
                       client.println();
                       
-                      request(); // verific the commands
+                      //request(); // verific the commands
                       break;                                                                    
         			} 
                     else{
@@ -81,7 +73,7 @@ void WebServer(){
             }
         }
         
-        header = ""; // clear the header variable
+        //header = ""; // clear the header variable
 
         //Close the connection
         client.stop();
@@ -89,43 +81,12 @@ void WebServer(){
 
     }//end if Client
 
-    //return (redColor, greenColor, blueColor, value);
+    return header; 
 
 }
 
+void clearHeader(){
+    header = "";
+}
 
-void request(){
-
-	if(header.indexOf("GET /ESPIOT?r") >= 0){
-        int pos1 = header.indexOf('r'); //red
-        int pos2 = header.indexOf('g'); // green
-        int pos3 = header.indexOf('b'); // blue
-        int pos4 = header.indexOf('&');
-
-        red   = header.substring(pos1+1, pos2).toInt();
-        green = header.substring(pos2+1, pos3).toInt();
-        blue  = header.substring(pos3+1, pos4).toInt();
-
-          
-
-    }
-
-    else if(header.indexOf("GET /ESPIOT?") >= 0){
-        int pos = header.indexOf('?');
-        int finally = header.indexOf('&');
-
-        String command = header.substring(pos+1,finally); //to commands
-
-        //////////////////////////////////////////////////////////////////////////
-
-        if(command == ""){ // turn on rainbow mode
-           
-        }   
-        else if(command == ""){ // turn on or off the light
             
-        }
-        else if(command == ""){ //turn on air conditioning
-
-        }
-    }                  
-}
