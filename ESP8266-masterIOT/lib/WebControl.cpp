@@ -45,7 +45,7 @@ String WebServer(){
 
             if(client.available()){
                char c = client.read();
-                Serial.write(c);
+                //Serial.write(c);
                 header += c;
 
                 if(c == '\n'){

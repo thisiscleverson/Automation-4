@@ -81,10 +81,10 @@ void request(String command){
 
             if(command2 == "RainbowON"){ // turn on rainbow mode
                 setColor(0,0,0,2);
-
             }   
             else if(command2 == "Light"){ // turn on or off the light
-                Serial.write("L21x0");
+                Serial.write("LTOx22");
+                delay(100);
             }
             else if(command2 == "airConditioning"){ //turn on air conditioning
                 SendIR();
@@ -96,14 +96,14 @@ void startLedTape(){
   for(int i=0; i<pixels.numPixels(); i++){
       pixels.setPixelColor(i,pixels.Color(0,230,255));
       pixels.show();
-      //delay(500);
+      delay(250);
   }
 }
 
 void setColor(byte R,byte G,byte B, byte index){
     switch (index){
       case 1:
-        Serial.println("dentro do case 1");
+        //Serial.println("dentro do case 1");
         RainbowTurnON = false;
 	      endRainbow = true;
 
@@ -139,5 +139,3 @@ void Rainbow(int wait){
       		delay(wait); 
   		}   
 }
-
-
