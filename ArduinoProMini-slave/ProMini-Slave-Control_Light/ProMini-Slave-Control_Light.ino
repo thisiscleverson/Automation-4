@@ -8,17 +8,17 @@
 
  */
 //module
-//#include "lib/Start.h"
+#include "lib/Start.h"
 
 //pinos
 
-#define button   2    // button
-#define relay    5    // rele
-#define buzzer   6    // buzer
+#define button   9    // button
+#define relay    8    // rele
+#define buzzer   11   // buzer
 #define led_Blue 7    // led blue
  
 #define FET 2 // function execution time in second   2s = 2000ms  
-#define TimerLight 25 // 60s = 1m
+#define TimerLight 25 // timer to turn on the light
 
 
 // variaveis [int]
@@ -36,7 +36,7 @@ bool turnONtheLight = false;
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   pinMode(relay, OUTPUT);
   pinMode(buzzer,OUTPUT);
@@ -45,7 +45,7 @@ void setup() {
 
   before_button = digitalRead(button);
 
-  //Start(buzzer); // start with song
+  Start(buzzer); // start with song
 }
 
 
@@ -55,8 +55,8 @@ void loop() {
   CommunicationSerial();
   Function();
   
-  Serial.println("Timer: " + String(turnONTimerLight));
-  Serial.println("Lighty: " + String(turnONtheLight));
+  //Serial.println("Timer: " + String(turnONTimerLight));
+ // Serial.println("Lighty: " + String(turnONtheLight));
 
 }
 
@@ -156,7 +156,7 @@ unsigned long Timer(bool rest){  // timer
   if(currentMillis - beforeMillis > 60000){ // wait 1m to add new value
      timer++; // add 1 value to variable
      beforeMillis = currentMillis;
-     Serial.println("function millis okay!");
+     //Serial.println("function millis okay!");
   }
   return(timer);
 }
