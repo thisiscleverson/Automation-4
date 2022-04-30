@@ -15,7 +15,7 @@
 #define button   9    // button
 #define relay    8    // rele
 #define buzzer   11   // buzer
-#define led_Blue 7    // led blue
+#define led_Blue 13   // led blue
  
 #define FET 2 // function execution time in second   2s = 2000ms  
 #define TimerLight 25 // timer to turn on the light
@@ -31,8 +31,8 @@ unsigned long beforeMillis;
 unsigned long beforeMillisRelay;
 
 
-bool turnONTimerLight = false;
-bool turnONtheLight = false;
+bool turnONTimerLight = false;  // timer on or off
+bool turnONtheLight   = false; //  light on or off
 
 
 void setup() {
@@ -50,14 +50,40 @@ void setup() {
 
 
 void loop() {
-  
+  ReadSerial();
   Button();
-  CommunicationSerial();
   Function();
   
   //Serial.println("Timer: " + String(turnONTimerLight));
  // Serial.println("Lighty: " + String(turnONtheLight));
 
+}
+
+void ReadSerial(){
+  char c;
+  if(Serial.available() > 0){
+
+     c = Serial.read();
+     switch(c){
+        case 'L':
+          function = 3;
+          Function();
+        break;
+
+        case 'T':
+          if(turnONtheLight == true){
+            function = 3;
+            Function();
+          }
+
+          analogWrite(buzzer,200);
+          delay(200);
+          analogWrite(buzzer, 50);
+          delay(200);
+          analogWrite(buzzer, 0);
+        break;
+     }
+  }
 }
 
 void Button(){
@@ -110,7 +136,13 @@ void Function(){
           turnONtheLight = true;
           digitalWrite(relay, turnONtheLight);
           function = 0;
-       break;   
+       break;
+
+       case 3:
+          turnONtheLight = !turnONtheLight;
+          digitalWrite(relay, turnONtheLight);
+          function = 0;
+       break;
 
        function = 0;
      }      
@@ -131,13 +163,7 @@ void Function(){
   }
 }
 
-void CommunicationSerial(){
-  if(Serial.available() > 0){
-    if(Serial.readString() == "LTOx22"){
-      function = 2;
-    }
-  }
-}
+
 
 unsigned long Timer(bool rest){  // timer
   static int timer;
