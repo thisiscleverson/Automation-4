@@ -11,6 +11,7 @@
 //define
 #define pin 3
 #define Npixels 30
+#define pinSensor A0 // pin to sensor temperature
 
 ///////////////////////////////////
 Adafruit_NeoPixel pixels  (Npixels, pin, NEO_GRB + NEO_KHZ400); // configurar a fita de led
@@ -33,6 +34,8 @@ void setup() {
   SPIFFS.begin();         // SPIFFS
   IRsensor.begin();
 
+  pinMode(pinSensor, INPUT);
+
   //////////////////////////////////////////////
   
   startLedTape();   // strart led tape with cor blue
@@ -52,10 +55,30 @@ void loop() {
   if(RainbowTurnON == true){
     Rainbow(10);
   }
- 
+  
+  SensorTemp();     // sensor temperature    
 }
 
 //commands
+
+void SensorTemp(){
+  static unsigned long beforeMillis;
+  unsigned long currentMillis = millis();
+
+  if(currentMillis - beforeMillis > 1000){ // wait 1m to add new value
+     beforeMillis = currentMillis;
+     
+      float Values_analog = float(analogRead(pinSensor));
+      float voltage = (Values_analog * 5) / 1023;
+      float temp = voltage / 0.010;
+
+      Serial.println("T: " + String(temp));
+
+      if(temp >= 85){
+         Serial.write("T");
+      }
+  } 
+}
 
 void request(String command){        
         if(command.indexOf("GET /ESPIOT?r") >= 0){
@@ -83,7 +106,7 @@ void request(String command){
                 setColor(0,0,0,2);
             }   
             else if(command2 == "Light"){ // turn on or off the light
-                Serial.write("LTOx22");
+                Serial.write("L");
                 delay(100);
             }
             else if(command2 == "airConditioning"){ //turn on air conditioning
@@ -130,6 +153,7 @@ void Rainbow(int wait){
 
       	 String command = WebServer(); 
          request(command);
+         clearHeader();           
 
 	    	if(endRainbow == true){  // finish led tape
         		endRainbow = false;
