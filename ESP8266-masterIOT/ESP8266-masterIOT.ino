@@ -9,12 +9,12 @@
 #include "lib/sendIR.h"
 
 //define
-#define pin 3
+#define GPIO 0 
 #define Npixels 30
 #define pinSensor A0 // pin to sensor temperature
 
 ///////////////////////////////////
-Adafruit_NeoPixel pixels  (Npixels, pin, NEO_GRB + NEO_KHZ400); // configurar a fita de led
+Adafruit_NeoPixel pixels  (Npixels, GPIO, NEO_GRB + NEO_KHZ400); // configurar a fita de led
 //IRsend IRsensor(4);
  
 //variable
@@ -41,7 +41,6 @@ void setup() {
   startLedTape();   // strart led tape with cor blue
   readFilesHTML();  // read file HTLM
   connect_WiFi();   // connect to wifi
-
 }
 
 void loop() {
@@ -53,14 +52,18 @@ void loop() {
   clearHeader();  
 
   if(RainbowTurnON == true){
-    Rainbow(10);
+    Rainbow(20);
   }
   
-  SensorTemp();     // sensor temperature    
+  SensorTemp();     // sensor temperature  
+  readSerial();     // read Serial commands  
 }
 
-//commands
 
+
+
+
+////////////////////////////////////////////////////////////////////////////////
 void SensorTemp(){
   static unsigned long beforeMillis;
   unsigned long currentMillis = millis();
@@ -72,11 +75,7 @@ void SensorTemp(){
       float voltage = (Values_analog * 5) / 1023;
       float temp = voltage / 0.010;
 
-      Serial.println("T: " + String(temp));
-
-      if(temp >= 85){
-         Serial.write("T");
-      }
+      Serial.println("Temperatura do regulador: " + String(temp));
   } 
 }
 
@@ -162,4 +161,16 @@ void Rainbow(int wait){
      		  pixels.show(); // Update strip with new contents
       		delay(wait); 
   		}   
+}
+
+void readSerial(){
+  char Command;
+
+  if(Serial.available() > 0){
+     Command = Serial.read();   
+  }
+
+  if(Command == 'A'){
+    SendIR();
+  }  
 }

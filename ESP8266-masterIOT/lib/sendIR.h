@@ -4,7 +4,7 @@
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
 
-IRsend IRsensor(4);
+IRsend IRsensor(4); // pin IR
 
 #define frequency 38
 
