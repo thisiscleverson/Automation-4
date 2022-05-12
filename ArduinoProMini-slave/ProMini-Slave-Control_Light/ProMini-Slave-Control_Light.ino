@@ -29,6 +29,7 @@ int function;
 
 unsigned long beforeMillis;
 unsigned long beforeMillisRelay;
+unsigned long beforeMillisButton;
 
 
 bool turnONTimerLight = false;  // timer on or off
@@ -54,9 +55,6 @@ void loop() {
   Button();
   Function();
   
-  //Serial.println("Timer: " + String(turnONTimerLight));
- // Serial.println("Lighty: " + String(turnONtheLight));
-
 }
 
 void ReadSerial(){
@@ -70,23 +68,13 @@ void ReadSerial(){
           Function();
         break;
 
-        case 'T':
-          if(turnONtheLight == true){
-            function = 3;
-            Function();
-          }
-
-          analogWrite(buzzer,200);
-          delay(200);
-          analogWrite(buzzer, 50);
-          delay(200);
-          analogWrite(buzzer, 0);
-        break;
      }
   }
 }
 
 void Button(){
+  unsigned long currentMillis = millis();
+  static bool action_once;
 
   after_button = digitalRead(button);
 
@@ -95,6 +83,22 @@ void Button(){
       beforeMillisRelay = millis();
       analogWrite(buzzer, 200);
   }
+  else if((!before_button) && (!after_button)){ // turn on the air conditioning
+      if((currentMillis - beforeMillisButton > 700) && (action_once)){ // wait 2s 
+         Serial.write("A");
+         analogWrite(buzzer,200);
+         delay(400);
+         function = 1;
+         Function();        
+         beforeMillisButton = currentMillis;
+        }
+  }
+  else{
+     beforeMillisButton = currentMillis;
+     action_once = true;    
+  }
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
   before_button = digitalRead(button);
 
@@ -121,13 +125,22 @@ void Function(){
      switch(function){
        case 1:
           //turnONtheLight   = !turnONtheLight;
-          if(turnONtheLight == false){
+          /*if(turnONtheLight == false){
              turnONTimerLight = !turnONTimerLight; // turn on the light with timer of 30 min 
           } 
-          turnONtheLight   = !turnONtheLight;
+          turnONtheLight = !turnONtheLight;
        	  if(turnONtheLight == false){
              turnONTimerLight = !turnONTimerLight; // turn on the light with timer of 30 min 
-          } 
+          } */
+
+          turnONtheLight = !turnONtheLight;
+          if(turnONtheLight == true){
+             turnONTimerLight = true;
+          }
+          else{
+             turnONTimerLight = false;
+          }
+
           digitalWrite(relay, turnONtheLight);
           function = 0;
        break;
@@ -135,6 +148,8 @@ void Function(){
        case 2:
           turnONtheLight = true;
           digitalWrite(relay, turnONtheLight);
+          analogWrite(buzzer,200);
+          delay(500);
           function = 0;
        break;
 
@@ -162,8 +177,6 @@ void Function(){
    	 turnONTimerLight = false;
   }
 }
-
-
 
 unsigned long Timer(bool rest){  // timer
   static int timer;
