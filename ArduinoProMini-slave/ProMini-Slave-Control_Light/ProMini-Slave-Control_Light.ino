@@ -18,7 +18,7 @@
 #define led_Blue 13   // led blue
  
 #define FET 2 // function execution time in second   2s = 2000ms  
-#define TimerLight 25 // timer to turn on the light
+#define TimerLight 10 // timer to turn on the light
 
 
 // variaveis [int]
@@ -47,6 +47,8 @@ void setup() {
   before_button = digitalRead(button);
 
   Start(buzzer); // start with song
+
+  Serial.println("Arduino OK");
 }
 
 
@@ -85,7 +87,9 @@ void Button(){
   }
   else if((!before_button) && (!after_button)){ // turn on the air conditioning
       if((currentMillis - beforeMillisButton > 700) && (action_once)){ // wait 2s 
+         action_once = false;
          Serial.write("A");
+         delay(100);
          analogWrite(buzzer,200);
          delay(400);
          function = 1;
