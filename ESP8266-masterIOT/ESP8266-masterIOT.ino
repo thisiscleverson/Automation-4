@@ -32,7 +32,7 @@ void setup() {
   Serial.begin(115200);   // serial 
   pixels.begin();         // Strip Led     
   SPIFFS.begin();         // SPIFFS
-  IRsensor.begin();
+  IRsensor.begin();       // IR 
 
   pinMode(pinSensor, INPUT);
 
@@ -55,8 +55,10 @@ void loop() {
     Rainbow(20);
   }
   
-  SensorTemp();     // sensor temperature  
-  readSerial();     // read Serial commands  
+  //SensorTemp();     // sensor temperature  
+  readSerial();     // read Serial commands 
+
+      
 }
 
 
@@ -125,7 +127,6 @@ void startLedTape(){
 void setColor(byte R,byte G,byte B, byte index){
     switch (index){
       case 1:
-        //Serial.println("dentro do case 1");
         RainbowTurnON = false;
 	      endRainbow = true;
 
@@ -164,13 +165,15 @@ void Rainbow(int wait){
 }
 
 void readSerial(){
-  char Command;
+  String c;
+  if(Serial.available()){
+     c = Serial.readString();
+     Serial.println(c);
 
-  if(Serial.available() > 0){
-     Command = Serial.read();   
+      if(c == "A"){        
+        SendIR();
+        //Serial.println("Commando IR okay!");
+      }
   }
-
-  if(Command == 'A'){
-    SendIR();
-  }  
 }
+

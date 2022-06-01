@@ -45,7 +45,7 @@ String getWeekDays(){
 	return weekDays[timeClient.getDay()];
 }
 
-void Routines(){
+int Routines(){
 
 	int hours,minutes, seconds = getTime();
 	String week_day = getWeekDays();
@@ -53,41 +53,11 @@ void Routines(){
 	///////////////////////////////////////
 
 	if((hours == hourM1) && (minutes >= minutM1 && minutes <= minutM1+10)){
-		Mode1();
-	}
-
-	if(){
-
-	}
-
-	if(){
-
-	}
-
-	if(){
-
+		return 1;
 	}
 
 
 }
 
 ///////////////////////////////////////////
-
-void Mode1(){
-
-}
-
-void Mode2(){
-
-}
-
-void Mode3(){
-
-}
-
-void Mode4(){
-
-}
-
-
 #endif
