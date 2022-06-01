@@ -10,7 +10,6 @@ Ai surgiu a <a href="https://pt.wikipedia.org/wiki/Internet_das_coisas">Internet
 comprei um <a href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.tcdn.com.br%2Fimg%2Fimg_prod%2F715570%2Fmodulo_esp8266_12e_v3_nodemcu_esp_12e_wifi_607_2_20190724233516.jpg&f=1&nofb=1">ESP8266</a> e comecei a mexer nesse módulo. Depois de muito tempo estudando a Internet das coísas, criei esse projeto de automação. 
 
 <h2>Especificações do projeto</h2>
-<hr>
 
 Esse projeto conta com:
 <blockquote>
@@ -25,9 +24,9 @@ Esse projeto conta com:
 
 <hr>
 
-```
-❗lembrando que esse projeto foi feito pensado em minhas necessidades. Com isso, se você foi querer implementar em sua residência e houver algum erro, você pode mandar soluções que eu terei o prazer de olhar. :)
-```
+
+❗lembrando que esse projeto foi feito pensado em minhas necessidades. Com isso, se você foi querer implementar em sua residência e houver algum erro, você pode mandar soluções que eu terei o prazer de olhar.  😄
+---
 
 
 
