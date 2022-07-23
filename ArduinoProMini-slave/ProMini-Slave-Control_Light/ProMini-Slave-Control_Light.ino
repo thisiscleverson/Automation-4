@@ -70,6 +70,16 @@ void ReadSerial(){
           Function();
         break;
 
+        case 'T':
+          turnONtheLight = true;
+          digitalWrite(relay, turnONtheLight);
+        break;
+
+        case 'D':
+          turnONtheLight = false;
+          digitalWrite(relay, turnONtheLight);
+        break;
+
      }
   }
 }
@@ -176,7 +186,7 @@ void Function(){
   else if((!turnONTimerLight) && (!turnONtheLight) && (Timer(false) > 0)){
     Timer(true); //timer = 0
   } 
-  
+   
   if(turnONtheLight == false){  // disable timer 
    	 turnONTimerLight = false;
   }
