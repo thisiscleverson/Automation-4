@@ -7,23 +7,28 @@
 
 
 //ip config
-WiFiServer server(80); // set web port number to 80
+WiFiServer server(90); // set web port number to 80
 
+/*
 IPAddress local_IP(192, 168, 0, 123);
 // Set your Gateway IP address
 IPAddress gateway(192, 168, 0, 1);
 
 IPAddress subnet(255, 255, 255, 0);
 IPAddress primaryDNS(8, 8, 8, 8);   //optional
-IPAddress secondaryDNS(8, 8, 4, 4); //optional
+IPAddress secondaryDNS(8, 8, 4, 4); //optional*/
 
 //////////////////////////////////////////////////////////////
 
 void connect_WiFi(){
-	// Print where it will connct
+   // Print where it will connct
+   
+   WiFi.mode(WIFI_STA);
+	
+  /*
   if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
-  }
-
+  }*/
+  
   Serial.println("\n\n");
   Serial.print("Connecting to: "+String(ssid)+" ");
   
@@ -38,6 +43,5 @@ void connect_WiFi(){
   //print local IP address and start web server
   Serial.print("\n\nWiFi connected in: "+String(ssid)+"\n\nIP address: ");
   Serial.print(WiFi.localIP());
-
-  server.begin(); 
+ 
 }

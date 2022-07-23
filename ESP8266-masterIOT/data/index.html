@@ -4,34 +4,97 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="data:,">
-        <!-- <link rel="stylesheet" href="style.css">  -->  
+
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+
+        <!--<link rel="stylesheet" href="./style.css"> -->
+
+        <style>
+            .body{
+                background-color: #21373d;
+            }
+
+            .container{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .Title{
+                font-size: 2em;
+                font-weight: bold;
+                color: rgb(97, 233, 109);
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .buttonRainbow{
+                margin-left: 15px; 
+                background: #069cc2; 
+                border-radius: 6px; 
+                padding: 10px; 
+                cursor: pointer; 
+                color: #fff; 
+                border: none; 
+                font-size: 16px;
+                margin-top: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .buttonAirConditioning{
+                margin-left: 15px; 
+                background: #069cc2; 
+                border-radius: 6px; 
+                padding: 10px; 
+                cursor: pointer; 
+                color: #fff; 
+                border: none; 
+                font-size: 16px;
+                margin-bottom: 2rem;
+            }
+
+            .buttonLight{
+                margin-left: 15px; 
+                background: #069cc2; 
+                border-radius: 6px; 
+                padding: 10px; 
+                cursor: pointer; 
+                color: #fff; 
+                border: none; 
+                font-size: 16px;
+            }
+        </style>
     </head>
     
-    <body>
-        <div class="container" style="margin: 10px 0 0 30px">
+    <body class="body">
+
+        <main class="container">
             <div class="row">
-                <h1 style="font-size: 3em; font-weight: bold; color: rgb(97, 233, 109); margin-bottom: 20px;">ESP Color</h1>
+                <h1 class="Title">automation control</h1>
             </div>
         
 
-            <a class="btn btn-primary btn-lg" href="#" id="change_color" role="button">Change Color</a> 
+            <a class="btn btn-primary btn-lg" href="/ESPIOT?#" id="change_color" role="button">Change Color</a> 
 
-            <input class="jscolor {onFineChange:'update(this)'}" id="rgb">
+            <input class="jscolor {onFineChange:'update(this)'}" id="rgb" style="margin-top: 2rem;">
 
             <a href='/ESPIOT?RainbowON&'>
-                <button style="margin-left: 15px; background: #069cc2; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;">rainbow</button>
+                <button class="buttonRainbow" >rainbow</button>
             </a>
 
             
             <a href='/ESPIOT?airConditioning&'>
-                <button style="margin-left: 15px; background: #069cc2; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;">Ar condicionado</button>
+                <button class="buttonAirConditioning">Ar condicionado</button>
             </a>
 
             <a href='/ESPIOT?Light&'>
-                <button style="margin-left: 15px; background: #069cc2; border-radius: 6px; padding: 10px; cursor: pointer; color: #fff; border: none; font-size: 16px;">Luz</button>
+                <button class="buttonLight">Luz</button>
             </a>
+
+            
+        </main>
 
             <script>
                 function update(picker) {
@@ -39,7 +102,6 @@
                     document.getElementById("change_color").href = "?r" + Math.round(picker.rgb[0]) + "g" +  Math.round(picker.rgb[1]) + "b" + Math.round(picker.rgb[2]) + "&";
                 }
             </script>
-            
-        </div>
+
     </body>
 </html>
